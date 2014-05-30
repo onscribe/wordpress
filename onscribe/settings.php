@@ -60,32 +60,32 @@ class OnscribeSettings
 	public function page_init()
 	{
 		register_setting(
-			'my_option_group', // Option group
-			'my_option_name', // Option name
+			'onscribe_group', // Option group
+			'onscribe', // Option name
 			array( $this, 'sanitize' ) // Sanitize
 		);
 
 		add_settings_section(
-			'setting_section_id', // ID
-			'My Custom Settings', // Title
+			'onscribe_settings', // ID
+			'Onscribe Settings', // Title
 			array( $this, 'print_section_info' ), // Callback
-			'my-setting-admin' // Page
+			'onscribe-admin' // Page
 		);
 
 		add_settings_field(
-			'id_number', // ID
-			'ID Number', // Title
-			array( $this, 'id_number_callback' ), // Callback
-			'my-setting-admin', // Page
-			'setting_section_id' // Section
+			'key', // ID
+			'API key', // Title
+			array( $this, 'onscribe_fields_key' ), // Callback
+			'onscribe-admin', // Page
+			'onscribe_settings' // Section
 		);
 
 		add_settings_field(
-			'title',
-			'Title',
-			array( $this, 'title_callback' ),
-			'my-setting-admin',
-			'setting_section_id'
+			'secret',
+			'API secret',
+			array( $this, 'onscribe_fields_secret' ),
+			'onscribe-admin',
+			'onscribe_settings'
 		);
 	}
 
@@ -97,11 +97,11 @@ class OnscribeSettings
 	public function sanitize( $input )
 	{
 		$new_input = array();
-		if( isset( $input['id_number'] ) )
-			$new_input['id_number'] = absint( $input['id_number'] );
+		if( isset( $input['key'] ) )
+			$new_input['key'] = absint( $input['key'] );
 
-		if( isset( $input['title'] ) )
-			$new_input['title'] = sanitize_text_field( $input['title'] );
+		if( isset( $input['secret'] ) )
+			$new_input['secret'] = sanitize_text_field( $input['secret'] );
 
 		return $new_input;
 	}
@@ -117,22 +117,22 @@ class OnscribeSettings
 	/**
 	 * Get the settings option array and print one of its values
 	 */
-	public function id_number_callback()
+	public function onscribe_fields_key()
 	{
 		printf(
-			'<input type="text" id="id_number" name="my_option_name[id_number]" value="%s" />',
-			isset( $this->options['id_number'] ) ? esc_attr( $this->options['id_number']) : ''
+			'<input type="text" id="onscribe_key" name="onscribe[key]" value="%s" />',
+			isset( $this->options['key'] ) ? esc_attr( $this->options['key']) : ''
 		);
 	}
 
 	/**
 	 * Get the settings option array and print one of its values
 	 */
-	public function title_callback()
+	public function onscribe_fields_secret()
 	{
 		printf(
-			'<input type="text" id="title" name="my_option_name[title]" value="%s" />',
-			isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
+			'<input type="text" id="onscribe_secret" name="onscribe[secret]" value="%s" />',
+			isset( $this->options['secret'] ) ? esc_attr( $this->options['secret']) : ''
 		);
 	}
 }
