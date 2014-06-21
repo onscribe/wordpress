@@ -5,9 +5,8 @@ Simple integration of Onscribeto for any Wordpress site. Allows you to connect t
 
 ## Dependencies
 
-You'll need a (free) account from Onscribe:
-
-[http://onscri.be](http://onscri.be)
+* Onscribe account (free registration): [http://onscri.be](http://onscri.be)
+* Wordpress > v3.9 - http://wordpress.org/
 
 
 ## Install
