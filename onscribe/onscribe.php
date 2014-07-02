@@ -22,6 +22,22 @@ if (function_exists( 'add_action' ) ) {
 
 	// interface
 
+	add_shortcode( 'onscribe', 'onscribe_shortcode' );
+
+}
+
+// Shortcode
+// Example: [onscribe]
+function onscribe_shortcode( $atts ) {
+	$template = "embed.php";
+	var_dump( $atts );
+	extract( shortcode_atts( array(
+	//	"list" => ""
+	), $atts ) );
+	// output
+	ob_start();
+	require( get_template_directory() ."/". $template);
+	return ob_get_clean();
 }
 
 ?>
