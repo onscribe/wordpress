@@ -10,8 +10,14 @@
  * http://www.gnu.org/licenses/gpl.txt
  */
 
+// set classes
+$class = "onscribe";
+if ( !empty($style) ){
+	$class .= " ". $style;
+}
 ?>
-<div class="onscribe" data-product="<?php echo $product; ?>"><!-- --></div>
+
+<div class="<?php echo $class; ?>" data-product="<?php echo $product; ?>"<?php if ( !empty($prompt) ){ echo ' data-prompt="'. $prompt '"'; } ?>><!-- --></div>
 <script type="text/javascript">
 (function(w,d) { var el = d.getElementById('onscribe-embed'); if( el == null ){
 	var o = d.createElement('script'); o.type = 'text/javascript'; o.async = true;
@@ -19,7 +25,3 @@
 	var s = d.getElementsByTagName('script')[0]; s.parentNode.insertBefore(o, s);
 }})(window, document);
 </script>
-<?php
-
-
-?>

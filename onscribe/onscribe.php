@@ -30,13 +30,14 @@ if (function_exists( 'add_action' ) ) {
 // Example: [onscribe]
 function onscribe_shortcode( $atts ) {
 	$template = "embed.php";
-	var_dump( $atts );
 	extract( shortcode_atts( array(
-	//	"list" => ""
+		"product" => "",
+		"style" => "",
+		"prompt" => ""
 	), $atts ) );
 	// output
 	ob_start();
-	require( get_template_directory() ."/". $template);
+	require( plugin_dir_path( __FILE__ ) ."/". $template);
 	return ob_get_clean();
 }
 
