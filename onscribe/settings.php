@@ -1,4 +1,14 @@
 <?php
+/**
+ * Plugin Name: Onscribe
+ * Author: Onscribe
+ * Author URI: http://onscri.be/
+ *
+ * @author Makis Tracend
+ * @copyright K&D Interactive Inc., All Rights Reserved
+ * This code is released under the GPL license version 3 or later, available here
+ * http://www.gnu.org/licenses/gpl.txt
+ */
 
 class OnscribeSettings
 {
