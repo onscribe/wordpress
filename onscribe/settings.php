@@ -150,11 +150,15 @@ class OnscribeSettings
 			return;
 		}
 		echo "<p>A list of available products</p>";
-		echo "<table>";
+		echo '<table class="products-list">';
 		foreach( $this->options["products"] as $product ){
 			$key = ( is_array($product) ) ? $product['key'] : $product->key;
 			$secret = ( is_array($product) ) ? $product['secret'] : $product->secret;
-			echo '<tr><td class="key">'. $key .'</td><td class="secret">'. $secret .'</td></tr>';
+			echo '<tr>';
+			echo '<td class="key">'. $key .'</td><td class="secret">'. $secret .'</td>';
+			// delete button
+			echo '<td class="delete"><a href="#" data-key="'. $key .'">[ X ]</a></td>';
+			echo '</tr>';
 		}
 		echo "</table>";
 	}

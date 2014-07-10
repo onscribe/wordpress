@@ -15,5 +15,5 @@ function onscribe_assets() {
 	wp_register_style( 'onscribe_wp_admin_css', plugin_dir_url( __FILE__ ) . 'assets/onscribe.css' );
 	wp_enqueue_style( 'onscribe_wp_admin_css' );
 	//
-	wp_enqueue_script( 'onscribe_wp_admin_js', plugin_dir_url( __FILE__ ) . 'assets/onscribe.js' );
+	wp_enqueue_script( 'onscribe_wp_admin_js', plugin_dir_url( __FILE__ ) . 'assets/onscribe.js', array( 'jquery' ) );
 }
