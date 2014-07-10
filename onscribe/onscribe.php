@@ -14,31 +14,18 @@ Author URI: http://onscri.be/
  * http://www.gnu.org/licenses/gpl.txt
  */
 
-if (function_exists( 'add_action' ) ) {
-	// plugin interface
+// modules
+include_once( dirname(__FILE__) ."/settings.php");
+include_once( dirname(__FILE__) ."/shortcode.php");
 
-	// modules
-	include_once( dirname(__FILE__) ."/settings.php");
+// Actions
+if (function_exists( 'add_action' ) ) {
+	// hooks
 
 	// interface
-
 	add_shortcode( 'onscribe', 'onscribe_shortcode' );
 
 }
 
-// Shortcode
-// Example: [onscribe]
-function onscribe_shortcode( $atts ) {
-	$template = "embed.php";
-	extract( shortcode_atts( array(
-		"product" => "",
-		"style" => "",
-		"prompt" => ""
-	), $atts ) );
-	// output
-	ob_start();
-	require( plugin_dir_path( __FILE__ ) ."/". $template);
-	return ob_get_clean();
-}
 
 ?>
