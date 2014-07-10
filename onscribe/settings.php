@@ -91,6 +91,14 @@ class OnscribeSettings
 		);
 
 		add_settings_field(
+			'products', // ID
+			'', // Title
+			array( $this, 'onscribe_fields_products' ), // Callback
+			'onscribe-admin', // Page
+			'onscribe_add' // Section
+		);
+
+		add_settings_field(
 			'key', // ID
 			'API key', // Title
 			array( $this, 'onscribe_fields_key' ), // Callback
@@ -114,14 +122,22 @@ class OnscribeSettings
 	 */
 	public function sanitize( $input )
 	{
-		$new_input = array();
+		$input["products"] = json_decode( $input["products"] );
+		if( empty( $input["products"] ) ) $input["products"] = array();
+
+		$product = array();
 		if( isset( $input['key'] ) )
-			$new_input['key'] = sanitize_text_field( $input['key'] );
+			$product['key'] = sanitize_text_field( $input['key'] );
 
 		if( isset( $input['secret'] ) )
-			$new_input['secret'] = sanitize_text_field( $input['secret'] );
+			$product['secret'] = sanitize_text_field( $input['secret'] );
 
-		return $new_input;
+		array_push( $input["products"], $product );
+		// reset
+		$input["key"] = "";
+		$input["secret"] = "";
+
+		return $input;
 	}
 
 	/**
@@ -129,8 +145,18 @@ class OnscribeSettings
 	 */
 	public function onscribe_products_list()
 	{
-		var_dump( $this->options );
-		print 'A list of available products...';
+		if( !array_key_exists("products", $this->options) || empty($this->options["products"]) ){
+			echo "<p>No products registered yet. Please add them using the fields below</p>";
+			return;
+		}
+		echo "<p>A list of available products</p>";
+		echo "<table>";
+		foreach( $this->options["products"] as $product ){
+			$key = ( is_array($product) ) ? $product['key'] : $product->key;
+			$secret = ( is_array($product) ) ? $product['secret'] : $product->secret;
+			echo '<tr><td class="key">'. $key .'</td><td class="secret">'. $secret .'</td></tr>';
+		}
+		echo "</table>";
 	}
 
 	/**
@@ -142,6 +168,16 @@ class OnscribeSettings
 	}
 
 
+	/**
+	 * Get the settings option array and print one of its values
+	 */
+	public function onscribe_fields_products()
+	{
+		printf(
+			'<input type="hidden" id="onscribe_products" name="onscribe[products]" value="%s" />',
+			isset( $this->options['products'] ) ? esc_attr( json_encode($this->options['products'], true) ) : ''
+		);
+	}
 
 	/**
 	 * Get the settings option array and print one of its values
