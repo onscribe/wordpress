@@ -77,7 +77,7 @@ class OnscribeSettings
 
 		add_settings_section(
 			'onscribe_products', // ID
-			'Available Keys', // Title
+			'Available Products', // Title
 			array( $this, 'onscribe_products_list' ), // Callback
 			'onscribe-admin' // Page
 		);
@@ -92,7 +92,7 @@ class OnscribeSettings
 
 		add_settings_field(
 			'products', // ID
-			'', // Title
+			null, // Title
 			array( $this, 'onscribe_fields_products' ), // Callback
 			'onscribe-admin', // Page
 			'onscribe_add' // Section
@@ -113,6 +113,15 @@ class OnscribeSettings
 			'onscribe-admin',
 			'onscribe_add'
 		);
+
+		add_settings_field(
+			'title', // ID
+			null, // Title
+			array( $this, 'onscribe_fields_title' ), // Callback
+			'onscribe-admin', // Page
+			'onscribe_add' // Section
+		);
+
 	}
 
 	/**
@@ -126,16 +135,22 @@ class OnscribeSettings
 		if( empty( $input["products"] ) ) $input["products"] = array();
 
 		$product = array();
-		if( isset( $input['key'] ) )
+		if( isset( $input['key'] ) && !empty($input['key']) )
 			$product['key'] = sanitize_text_field( $input['key'] );
 
-		if( isset( $input['secret'] ) )
+		if( isset( $input['secret'] ) && !empty($input['secret']) )
 			$product['secret'] = sanitize_text_field( $input['secret'] );
 
-		array_push( $input["products"], $product );
+		if( isset( $input['title'] ) && !empty($input['title']) )
+			$product['title'] = sanitize_text_field( $input['title'] );
+
 		// reset
 		$input["key"] = "";
 		$input["secret"] = "";
+		$input["title"] = "";
+
+		// FIX: stop if empty creds submitted
+		if( !empty($product) ) array_push( $input["products"], $product );
 
 		return $input;
 	}
@@ -149,12 +164,14 @@ class OnscribeSettings
 			echo "<p>No products registered yet. Please add them using the fields below</p>";
 			return;
 		}
-		echo "<p>A list of available products</p>";
+		echo "<p>Here is a list of the products you previously added:</p>";
 		echo '<table class="products-list">';
 		foreach( $this->options["products"] as $product ){
 			$key = ( is_array($product) ) ? $product['key'] : $product->key;
 			$secret = ( is_array($product) ) ? $product['secret'] : $product->secret;
+			$title = ( is_array($product) ) ? $product['title'] : $product->title;
 			echo '<tr>';
+			echo '<td class="title">'. $title .'</td>';
 			echo '<td class="key">'. $key .'</td><td class="secret">'. $secret .'</td>';
 			// delete button
 			echo '<td class="delete"><a href="#" data-key="'. $key .'">[ X ]</a></td>';
@@ -204,6 +221,19 @@ class OnscribeSettings
 			isset( $this->options['secret'] ) ? esc_attr( $this->options['secret']) : ''
 		);
 	}
+
+	/**
+	 * Get the settings option array and print one of its values
+	 */
+	public function onscribe_fields_title()
+	{
+		printf(
+			'<input type="hidden" id="onscribe_title" name="onscribe[title]" value="%s" />',
+			isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
+		);
+	}
+
+
 }
 
 if( is_admin() )
