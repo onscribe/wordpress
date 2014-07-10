@@ -17,10 +17,12 @@ Author URI: http://onscri.be/
 // modules
 include_once( dirname(__FILE__) ."/settings.php");
 include_once( dirname(__FILE__) ."/shortcode.php");
+include_once( dirname(__FILE__) ."/assets.php");
 
 // Actions
 if (function_exists( 'add_action' ) ) {
 	// hooks
+	add_action( 'admin_enqueue_scripts', 'onscribe_assets' );
 
 	// interface
 	add_shortcode( 'onscribe', 'onscribe_shortcode' );
