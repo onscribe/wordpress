@@ -61,4 +61,46 @@ $(document).ready(function(){
 		$("input#onscribe_products").val( JSON.stringify(onscribe.products) );
 	});
 
+	// Shortcode generator
+	$("input#onscribe-shortcode-gen").click(function(e){
+		e.preventDefault();
+
+		// variables
+		var $el = $("#onscribe_products");
+		var shortcode = "";
+		var options = [];
+		var values = {
+			key: $el.find("select").val(),
+			format: $el.find("input[name='onscribe_option_format']:checked").val(),
+			icons: $el.find("input[name='onscribe_option_icons']:checked").val(),
+			text: $el.find("input[name='onscribe_option_text']:checked").val(),
+			custom: $el.find("input[name='onscribe_option_text_custom']").val()
+		};
+
+		// Conditions
+		options.push('product="'+ values.key +'"');
+
+		if( values.format == "icons" ){
+			if( values.icons == "small" ){
+				options.push('style="small-icons"');
+			}
+			// the regular buttons don't need a custom style...
+		} else {
+			// if custom text, it is always in long form...
+			if( values.custom !== "" ){
+				options.push('style="long-text"');
+				options.push('prompt="'+ values.custom +'"');
+			} else if( values.text == "long" ) {
+				options.push('style="long-text"');
+			} else {
+				options.push('style="short-text"');
+			}
+		}
+		shortcode = "[onscribe "+ options.join(" ") +"]";
+
+		// add text in editor
+		window.parent.send_to_editor( shortcode );
+		window.parent.tb_remove();
+	});
+
 });

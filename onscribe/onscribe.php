@@ -18,11 +18,13 @@ Author URI: http://onscri.be/
 include_once( dirname(__FILE__) ."/settings.php");
 include_once( dirname(__FILE__) ."/shortcode.php");
 include_once( dirname(__FILE__) ."/assets.php");
+include_once( dirname(__FILE__) ."/meta_box.php");
 
 // Actions
 if (function_exists( 'add_action' ) ) {
 	// hooks
 	add_action( 'admin_enqueue_scripts', 'onscribe_assets' );
+	add_action( 'add_meta_boxes', 'onscribe_add_meta_box' );
 
 	// interface
 	add_shortcode( 'onscribe', 'onscribe_shortcode' );
