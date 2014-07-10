@@ -36,7 +36,7 @@ class OnscribeSettings
 			'Settings Admin',
 			'Onscribe',
 			'manage_options',
-			'my-setting-admin',
+			'onscribe-admin',
 			array( $this, 'create_admin_page' )
 		);
 	}
@@ -47,7 +47,7 @@ class OnscribeSettings
 	public function create_admin_page()
 	{
 		// Set class property
-		$this->options = get_option( 'my_option_name' );
+		$this->options = get_option( 'onscribe' );
 		?>
 		<div class="wrap">
 			<?php screen_icon(); ?>
@@ -55,8 +55,8 @@ class OnscribeSettings
 			<form method="post" action="options.php">
 			<?php
 				// This prints out all hidden setting fields
-				settings_fields( 'my_option_group' );
-				do_settings_sections( 'my-setting-admin' );
+				settings_fields( 'onscribe_group' );
+				do_settings_sections( 'onscribe-admin' );
 				submit_button();
 			?>
 			</form>
@@ -76,9 +76,17 @@ class OnscribeSettings
 		);
 
 		add_settings_section(
-			'onscribe_settings', // ID
-			'Onscribe Settings', // Title
-			array( $this, 'print_section_info' ), // Callback
+			'onscribe_products', // ID
+			'Available Keys', // Title
+			array( $this, 'onscribe_products_list' ), // Callback
+			'onscribe-admin' // Page
+		);
+
+
+		add_settings_section(
+			'onscribe_add', // ID
+			'New Product', // Title
+			array( $this, 'onscribe_add_info' ), // Callback
 			'onscribe-admin' // Page
 		);
 
@@ -87,7 +95,7 @@ class OnscribeSettings
 			'API key', // Title
 			array( $this, 'onscribe_fields_key' ), // Callback
 			'onscribe-admin', // Page
-			'onscribe_settings' // Section
+			'onscribe_add' // Section
 		);
 
 		add_settings_field(
@@ -95,7 +103,7 @@ class OnscribeSettings
 			'API secret',
 			array( $this, 'onscribe_fields_secret' ),
 			'onscribe-admin',
-			'onscribe_settings'
+			'onscribe_add'
 		);
 	}
 
@@ -108,7 +116,7 @@ class OnscribeSettings
 	{
 		$new_input = array();
 		if( isset( $input['key'] ) )
-			$new_input['key'] = absint( $input['key'] );
+			$new_input['key'] = sanitize_text_field( $input['key'] );
 
 		if( isset( $input['secret'] ) )
 			$new_input['secret'] = sanitize_text_field( $input['secret'] );
@@ -119,10 +127,21 @@ class OnscribeSettings
 	/**
 	 * Print the Section text
 	 */
-	public function print_section_info()
+	public function onscribe_products_list()
 	{
-		print 'Enter your settings below:';
+		var_dump( $this->options );
+		print 'A list of available products...';
 	}
+
+	/**
+	 * Print the Section text
+	 */
+	public function onscribe_add_info()
+	{
+		print 'If you want to add a new product, include its credentials below:';
+	}
+
+
 
 	/**
 	 * Get the settings option array and print one of its values
