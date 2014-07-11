@@ -5,15 +5,15 @@ Simple integration of Onscribeto for any Wordpress site. Allows you to connect t
 
 ## Dependencies
 
-* Onscribe account (free registration): [http://onscri.be](http://onscri.be)
-* Wordpress > v3.9 - http://wordpress.org/
+* [Onscribe account](http://onscri.be) ( free registration )
+* [Wordpress](http://wordpress.org/) ( > v3.9 )
 
 
 ## Install
 
 1. Download
-2. Upload to your ```/wp-contents/plugins/``` directory.
-3. Activate the plugin through the 'Plugins' menu in WordPress.
+2. Copy the ```onscribe``` folder to your ```/wp-contents/plugins/``` directory.
+3. Activate the plugin _Onscribe_ through the 'Plugins' menu in WordPress.
 
 
 ## Usage
@@ -28,7 +28,7 @@ You can then review your products straight from the administration:
 
 You can add subscription buttons on your blog in three ways:
 
-* Using the php method ```onscribe_buttons``` in the temapltes. Best used if you want the buttons everywhere and you're only using one product.
+* Using the php method ```onscribe_buttons``` in the templates. Best used if you want the buttons everywhere and you're only using one product.
 * Using the shortcode ```[onscribe product='1234567890']``` inside a post.
 * Using the options box _Subscriptions_, available for all posts and pages. You can simply select a product and the buttons will be automatically generated before and after the post body.
 
