@@ -1,6 +1,7 @@
 
 // Namespaces:
 // - settings page: body.settings_page_onscribe-admin
+// - meta box: div#_onscribe_products.postbox
 
 var $ = $ || jQuery;
 

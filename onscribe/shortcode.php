@@ -1,8 +1,6 @@
 <?php
 /**
- * Plugin Name: Onscribe
- * Author: Onscribe
- * Author URI: http://onscri.be/
+ * Onscribe: Shortcode
  *
  * @author Makis Tracend
  * @copyright K&D Interactive Inc., All Rights Reserved
