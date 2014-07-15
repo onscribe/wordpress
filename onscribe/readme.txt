@@ -49,11 +49,11 @@ Like Wordpress, Onscribe is people-centric and wants to give more power to its u
 
 = What are subscriptions for? =
 
-To allow fans of any blog show their support in a meaningful way while blog owners recieve an immediate reward for their efforts that's in a recurring format, which creates a more predictable income stream.
+To allow fans of any blog show their support in a meaningful way while blog owners receive an immediate reward for their efforts that's in a recurring format, which creates a more predictable income stream.
 
 = Do I need an Onscribe account? =
 
-Yes, signing up is for free and setting up your Onscribe account is only required once, for your peace of mind. You can register any time by visiting: http://onscri.be
+Yes, signing up is free and setting up your Onscribe account is only required once, allowing you to create multiple subscriptions with peace of mind. You can register any time by visiting: http://onscri.be
 
 = Can I customize my buttons? =
 
